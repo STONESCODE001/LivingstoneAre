@@ -1,0 +1,599 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Livingstone Are</title>
+  <meta name="description" content="Software engineer. React, Next.js, TypeScript. Ibadan, Nigeria. Open to remote." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Mono:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --ink:    #141414;
+      --mid:    #666;
+      --faint:  #aaa;
+      --line:   #e4e4e4;
+      --bg:     #fff;
+      --accent: #5a6e8c; /* calm slate blue — the only color */
+      --serif:  'Instrument Serif', Georgia, serif;
+      --mono:   'DM Mono', monospace;
+    }
+
+    html { font-size: 15px; }
+
+    body {
+      background: var(--bg);
+      color: var(--ink);
+      font-family: var(--mono);
+      font-weight: 300;
+      line-height: 1.55;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .page {
+      max-width: 620px;
+      margin: 0 auto;
+      padding: 68px 28px 96px;
+    }
+
+    /* ── ANIMATIONS ── */
+    @keyframes rise {
+      from { opacity: 0; transform: translateY(8px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    [data-f] { opacity: 0; animation: rise 0.45s ease forwards; }
+    [data-f="1"] { animation-delay: 0.04s; }
+    [data-f="2"] { animation-delay: 0.10s; }
+    [data-f="3"] { animation-delay: 0.16s; }
+    [data-f="4"] { animation-delay: 0.22s; }
+    [data-f="5"] { animation-delay: 0.28s; }
+    [data-f="6"] { animation-delay: 0.34s; }
+    [data-f="7"] { animation-delay: 0.40s; }
+    [data-f="8"] { animation-delay: 0.46s; }
+
+    /* ── HEADER ── */
+    .avatar {
+      width: 44px; height: 44px;
+      border-radius: 50%;
+      object-fit: cover;
+      display: block;
+      margin-bottom: 16px;
+      border: 1px solid var(--line);
+      /*
+        SWAP with your photo:
+        <img class="avatar" src="images/me.jpg" alt="Livingstone Are" />
+      */
+    }
+
+    .avatar-ph {
+      width: 44px; height: 44px; border-radius: 50%;
+      border: 1px solid var(--line);
+      background: #f7f7f7;
+      margin-bottom: 16px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.1rem; color: var(--faint);
+    }
+
+    h1 {
+      font-family: var(--serif);
+      font-style: italic;
+      font-weight: 400;
+      font-size: clamp(2.5rem, 8vw, 3.8rem);
+      letter-spacing: -0.025em;
+      line-height: 1;
+      margin-bottom: 8px;
+    }
+
+    .sub {
+      font-size: 0.78rem;
+      color: var(--mid);
+      margin-bottom: 16px;
+    }
+
+    .nav {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      margin-bottom: 52px;
+    }
+
+    .nav a {
+      font-size: 0.72rem;
+      color: var(--faint);
+      text-decoration: none;
+      transition: color 0.12s;
+      padding-bottom: 1px;
+      border-bottom: 1px solid transparent;
+    }
+
+    .nav a:hover { color: var(--accent); border-bottom-color: var(--accent); }
+    .nav .s { color: var(--line); margin: 0 5px; }
+
+    /* ── BIO ── */
+    .bio {
+      font-size: 0.8rem;
+      color: var(--mid);
+      line-height: 1.8;
+      max-width: 500px;
+      margin-bottom: 52px;
+    }
+
+    .bio em {
+      font-family: var(--serif);
+      font-style: italic;
+      font-size: 0.92rem;
+      color: var(--ink);
+    }
+
+    .bio b { font-weight: 500; color: var(--ink); }
+
+    /* ── BLOCK ── */
+    .block { margin-bottom: 44px; }
+
+    .block-title {
+      font-family: var(--serif);
+      font-style: italic;
+      font-weight: 400;
+      font-size: 1.45rem;
+      color: var(--ink);
+      letter-spacing: -0.01em;
+      margin-bottom: 20px;
+    }
+
+    /* ── ROW ── */
+    .row {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: 12px;
+      margin-bottom: 14px;
+      cursor: default;
+    }
+
+    .row-l { flex: 1; min-width: 0; }
+
+    .row-top {
+      display: flex;
+      align-items: baseline;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+
+    .co {
+      font-size: 0.86rem;
+      font-weight: 500;
+      color: var(--ink);
+    }
+
+    .co a {
+      color: inherit; text-decoration: none;
+      border-bottom: 1px solid transparent;
+      transition: color 0.12s, border-color 0.12s;
+    }
+    .co a:hover { color: var(--accent); border-bottom-color: var(--accent); }
+
+    .rl {
+      font-size: 0.73rem;
+      color: var(--faint);
+      font-weight: 300;
+    }
+
+    .dt {
+      font-size: 0.7rem;
+      color: var(--faint);
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+
+    .dsc {
+      font-size: 0.75rem;
+      color: var(--mid);
+      line-height: 1.55;
+      margin-top: 1px;
+    }
+
+    .pull {
+      font-size: 0.7rem;
+      color: var(--accent);
+      font-weight: 400;
+      margin-top: 2px;
+      display: block;
+    }
+
+    /* ── HARDWARE ── */
+    .hw-meta {
+      font-size: 0.7rem;
+      color: var(--faint);
+      margin-top: 2px;
+      margin-bottom: 10px;
+    }
+
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 5px;
+      margin-top: 10px;
+    }
+
+    .gitem {
+      aspect-ratio: 4/3;
+      border: 1px solid var(--line);
+      border-radius: 2px;
+      overflow: hidden;
+      background: #f9f9f9;
+    }
+
+    .gitem img {
+      width: 100%; height: 100%;
+      object-fit: cover; display: block;
+      transition: opacity 0.2s;
+    }
+
+    .gitem:hover img { opacity: 0.85; }
+
+    .gph {
+      width: 100%; height: 100%;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      gap: 3px; color: var(--faint); font-size: 0.58rem;
+      text-align: center; padding: 6px;
+    }
+
+    /* ── AVAILABILITY ── */
+    .avail {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.7rem;
+      color: var(--accent);
+      font-weight: 400;
+      margin-bottom: 10px;
+    }
+
+    .dot {
+      width: 5px; height: 5px; border-radius: 50%;
+      background: var(--accent);
+      animation: blink 2.4s ease-in-out infinite;
+    }
+
+    @keyframes blink {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.2; }
+    }
+
+    .ctxt {
+      font-size: 0.78rem;
+      color: var(--mid);
+      line-height: 1.8;
+    }
+
+    .ctxt a {
+      color: var(--ink); font-weight: 500;
+      text-decoration: none;
+      border-bottom: 1px solid var(--ink);
+      transition: color 0.12s, border-color 0.12s;
+    }
+    .ctxt a:hover { color: var(--accent); border-bottom-color: var(--accent); }
+
+    /* ── FOOTER ── */
+    footer {
+      margin-top: 56px;
+      padding-top: 20px;
+      border-top: 1px solid var(--line);
+      font-size: 0.63rem;
+      color: var(--faint);
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 4px;
+    }
+
+    /* ── HOVER PREVIEW ── */
+    .preview {
+      position: fixed;
+      width: 248px;
+      background: var(--bg);
+      border: 1px solid var(--line);
+      border-radius: 2px;
+      overflow: hidden;
+      box-shadow: 0 12px 40px rgba(0,0,0,0.10);
+      pointer-events: none;
+      opacity: 0;
+      transform: scale(0.95) translateY(5px);
+      transition: opacity 0.16s, transform 0.16s;
+      z-index: 999;
+    }
+
+    .preview.on { opacity: 1; transform: scale(1) translateY(0); }
+
+    .preview img { width: 100%; display: block; }
+
+    .preview-ph {
+      width: 100%; aspect-ratio: 16/9;
+      background: #f5f5f5;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      gap: 5px; color: var(--faint); font-size: 0.64rem;
+    }
+
+    .preview-cap {
+      padding: 7px 11px;
+      font-size: 0.63rem;
+      color: var(--mid);
+      border-top: 1px solid var(--line);
+    }
+
+    /* ── MOBILE ── */
+    @media (max-width: 460px) {
+      .page { padding: 44px 20px 64px; }
+      .row { flex-wrap: wrap; }
+      .dt { margin-top: -8px; }
+      .preview { display: none; }
+      .gallery { grid-template-columns: repeat(2, 1fr); }
+    }
+  </style>
+</head>
+<body>
+<div class="page">
+
+  <!-- HEADER -->
+  <div data-f="1">
+    <!--
+      YOUR PHOTO — replace div.avatar-ph with:
+      <img class="avatar" src="images/me.jpg" alt="Livingstone Are" />
+    -->
+    <div class="avatar-ph">:)</div>
+    <h1>Livingstone Are</h1>
+  </div>
+
+  <div data-f="2">
+    <p class="sub">software engineer &nbsp;·&nbsp; react · next.js · typescript &nbsp;·&nbsp; ibadan, nigeria</p>
+    <nav class="nav">
+      <a href="mailto:stonescode001@gmail.com">email</a>
+      <span class="s">/</span>
+      <a href="https://www.linkedin.com/in/livingstone-are-017179334/" target="_blank">linkedin</a>
+      <span class="s">/</span>
+      <a href="https://github.com/STONESCODE001" target="_blank">github</a>
+      <span class="s">/</span>
+      <a href="https://hflixng.web.app" target="_blank">hflix ↗</a>
+    </nav>
+  </div>
+
+  <!-- BIO -->
+  <div data-f="3">
+    <p class="bio">
+      Enrolled in university at 15. Built most of what I know from scratch —
+      <em>literally</em>, on an Android phone, no laptop.<br><br>
+      I make <b>frontend-heavy full-stack products</b> that solve real problems in Nigeria and beyond.
+      A tax calculator, a scheduling PWA, the first BBNaija prediction market,
+      a subscription platform with <b>2M+ TikTok views</b>.
+      Also building hardware — NFC attendance for Nigerian universities,
+      backed by <b>Bagel Fund, San Francisco</b>.
+    </p>
+  </div>
+
+  <!-- WORK -->
+  <div class="block" data-f="4">
+    <h2 class="block-title">work</h2>
+
+    <div class="row" data-preview="pv-farida">
+      <div class="row-l">
+        <div class="row-top">
+          <span class="co">Farida</span>
+          <span class="rl">founding engineer · sole developer</span>
+        </div>
+        <p class="dsc">nigerian tax calculator — connect your bank, get your liability. mono api across 29+ banks.</p>
+      </div>
+      <span class="dt">dec 2025 – jan 2026</span>
+    </div>
+
+    <div class="row" data-preview="pv-studysync">
+      <div class="row-l">
+        <div class="row-top">
+          <span class="co">StudySync</span>
+          <span class="rl">software engineer · contract · remote</span>
+        </div>
+        <p class="dsc">photo-to-timetable scheduling pwa — ocr pipeline, offline-first, o(1) class lookup.</p>
+      </div>
+      <span class="dt">jan – nov 2025</span>
+    </div>
+
+    <div class="row" data-preview="pv-betbbn">
+      <div class="row-l">
+        <div class="row-top">
+          <span class="co">BetBBN</span>
+          <span class="rl">founding engineer · sole developer</span>
+        </div>
+        <p class="dsc">nigeria's first real-money prediction market for big brother naija. websockets, live odds.</p>
+      </div>
+      <span class="dt">jun – sep 2025</span>
+    </div>
+
+  </div>
+
+  <!-- PROJECTS -->
+  <div class="block" data-f="5">
+    <h2 class="block-title">projects</h2>
+
+    <div class="row" data-preview="pv-hflix">
+      <div class="row-l">
+        <div class="row-top">
+          <span class="co"><a href="https://hflixng.web.app" target="_blank">HFLIX ↗</a></span>
+          <span class="rl">founder · sole developer</span>
+        </div>
+        <p class="dsc">subscription-sharing platform. split costs, automated renewal reminders.</p>
+        <span class="pull">2m+ tiktok views · #4 on google · zero paid ads · built on a phone</span>
+      </div>
+      <span class="dt">aug – nov 2024</span>
+    </div>
+
+    <div class="row" data-preview="pv-soundchat">
+      <div class="row-l">
+        <div class="row-top">
+          <span class="co">Soundchat</span>
+          <span class="rl">lead developer · buildspace</span>
+        </div>
+        <p class="dsc">mobile messaging app — send audio memes instead of texts. react native + firebase.</p>
+        <span class="pull">built entirely on itel a56 pro · no laptop · no desktop</span>
+      </div>
+      <span class="dt">mar – jun 2024</span>
+    </div>
+
+  </div>
+
+  <!-- HARDWARE -->
+  <div class="block" data-f="6">
+    <h2 class="block-title">hardware</h2>
+
+    <div class="row">
+      <div class="row-l">
+        <div class="row-top">
+          <span class="co">UNITAP — NFC Attendance System</span>
+          <span class="rl">lead hardware engineer</span>
+        </div>
+        <p class="dsc">replacing paper attendance at nigerian universities. tap your id, logged instantly — works fully offline. working prototype in 4 weeks, $100 budget.</p>
+        <p class="hw-meta">esp32 · nfc · offline-first · bagel fund, san francisco</p>
+      </div>
+      <span class="dt">jul 2025 – present</span>
+    </div>
+
+    <!--
+      ═══════════════════════════════════════════════════════
+      HARDWARE GALLERY
+      Replace each .gph div inside a .gitem with:
+        <img src="images/unitap-1.jpg" alt="description" />
+
+      Add more .gitem divs to the grid for more photos.
+      Suggested shots:
+        1. Full assembled prototype
+        2. ESP32 / NFC reader close-up
+        3. Demo — someone tapping a card
+        4. Casing or breadboard layout
+      ═══════════════════════════════════════════════════════
+    -->
+    <div class="gallery">
+      <div class="gitem">
+        <div class="gph">
+          <span style="font-size:1.2rem">📷</span>
+          <span>prototype</span>
+          <span style="opacity:.5">unitap-1.jpg</span>
+        </div>
+      </div>
+      <div class="gitem">
+        <div class="gph">
+          <span style="font-size:1.2rem">📷</span>
+          <span>nfc reader</span>
+          <span style="opacity:.5">unitap-2.jpg</span>
+        </div>
+      </div>
+      <div class="gitem">
+        <div class="gph">
+          <span style="font-size:1.2rem">📷</span>
+          <span>demo</span>
+          <span style="opacity:.5">unitap-3.jpg</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- CONTACT -->
+  <div class="block" data-f="7">
+    <h2 class="block-title">contact</h2>
+    <div class="avail"><span class="dot"></span>available for remote roles</div>
+    <p class="ctxt">
+      Looking for remote engineering work — contract or full-time.<br>
+      <a href="mailto:stonescode001@gmail.com">stonescode001@gmail.com</a>
+      &nbsp;·&nbsp;
+      <a href="https://www.linkedin.com/in/livingstone-are-017179334/" target="_blank">linkedin</a>
+    </p>
+  </div>
+
+  <footer data-f="8">
+    <span>livingstone are · ibadan, nigeria</span>
+    <span>open to remote · © 2026</span>
+  </footer>
+
+</div>
+
+<!-- HOVER PREVIEWS -->
+<div class="preview" id="pv-farida">
+  <!-- SWAP: <img src="images/farida.png" alt="Farida" /> -->
+  <div class="preview-ph">
+    <span style="font-size:1.6rem">🏦</span>
+    <span>add → images/farida.png</span>
+  </div>
+  <div class="preview-cap">farida · nigerian tax calculator</div>
+</div>
+
+<div class="preview" id="pv-studysync">
+  <div class="preview-ph">
+    <span style="font-size:1.6rem">📅</span>
+    <span>add → images/studysync.png</span>
+  </div>
+  <div class="preview-cap">studysync · ai scheduling pwa</div>
+</div>
+
+<div class="preview" id="pv-betbbn">
+  <div class="preview-ph">
+    <span style="font-size:1.6rem">🎰</span>
+    <span>add → images/betbbn.png</span>
+  </div>
+  <div class="preview-cap">betbbn · bbnaija prediction market</div>
+</div>
+
+<div class="preview" id="pv-hflix">
+  <div class="preview-ph">
+    <span style="font-size:1.6rem">🎬</span>
+    <span>add → images/hflix.png</span>
+  </div>
+  <div class="preview-cap">hflix · subscription sharing · 2m+ views</div>
+</div>
+
+<div class="preview" id="pv-soundchat">
+  <div class="preview-ph">
+    <span style="font-size:1.6rem">🔊</span>
+    <span>add → images/soundchat.png</span>
+  </div>
+  <div class="preview-cap">soundchat · audio messaging · built on a phone</div>
+</div>
+
+<script>
+  const pvs = {};
+  document.querySelectorAll('.preview').forEach(el => pvs[el.id] = el);
+
+  let active = null, mx = 0, my = 0;
+
+  document.addEventListener('mousemove', e => {
+    mx = e.clientX; my = e.clientY;
+    if (active) place(active);
+  });
+
+  function place(el) {
+    const w = 248, h = el.offsetHeight || 190;
+    const vw = window.innerWidth, vh = window.innerHeight, g = 18;
+    let x = mx + g, y = my - h / 2;
+    if (x + w > vw - 8) x = mx - w - g;
+    if (y < 8) y = 8;
+    if (y + h > vh - 8) y = vh - h - 8;
+    el.style.left = x + 'px';
+    el.style.top  = y + 'px';
+  }
+
+  document.querySelectorAll('[data-preview]').forEach(row => {
+    const el = pvs[row.dataset.preview];
+    if (!el) return;
+    row.addEventListener('mouseenter', () => {
+      if (active && active !== el) active.classList.remove('on');
+      place(el); el.classList.add('on'); active = el;
+    });
+    row.addEventListener('mouseleave', () => {
+      el.classList.remove('on'); active = null;
+    });
+  });
+</script>
+</body>
+</html>
